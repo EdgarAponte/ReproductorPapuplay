@@ -1,0 +1,60 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using System.IO;
+
+
+namespace Login
+{
+	
+	public partial class MainForm : Form
+	{
+		public MainForm()
+		{
+			
+			InitializeComponent();
+			btnLogin.Click += new EventHandler(btnLogin_Click);
+			btnregistrarse.Click += new EventHandler(btnregistrarse_Click);
+			btncerrar.Click+= new EventHandler(btncerrar_Click);
+		}
+
+		void btnregistrarse_Click(object sender, EventArgs e)
+		{
+			{
+			this.Visible=false; // esto hace que cuando le demos click al boto registrarse oculte el formulario de login
+			Form1 FormularioRegistro= new Form1(); //creamos una instancia para mostrar el formulario de registro
+			FormularioRegistro.ShowDialog();// es para mostrar el formulario de registro
+			FormularioRegistro=null;// es para que cuando se cierre el formulario se libere la memoria
+			this.Visible=true;//es para que cuando se cierre el formulario de registro se muestre otra vez el de login
+			}
+		}
+
+		void btnLogin_Click(object sender, EventArgs e)
+		{
+			using(coleccionusuario ComprobarREgistro=new coleccionusuario())
+			{
+				ComprobarREgistro.CargarDatos();
+				if(ComprobarREgistro.VereficarLogin(usuario.Text,contrase.Text) == true)
+				{
+				this.Visible=false;
+				Reproductor MostrarReproductor = new Reproductor();
+				MostrarReproductor.ShowDialog();
+				MostrarReproductor=null;
+				}else MessageBox.Show("Usuario o Contraseña invalido");
+			}
+			
+		}
+
+		void btncerrar_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("¿Estás seguro de que quieres salir?", "Confirmación", MessageBoxButtons.YesNo);
+  		  	if (dialogResult == DialogResult.Yes)
+    		{
+      		  this.Close();
+   			}
+  		}
+		
+	}
+	
+}
