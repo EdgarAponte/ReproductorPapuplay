@@ -15,7 +15,7 @@ namespace Login
 			
 			InitializeComponent();
 			btnLogin.Click += new EventHandler(btnLogin_Click);
-			btnregistrarse.Click += new EventHandler(btnregistrarse_Click);
+			btnregistrarse.Click += new EventHansfsfdler(btnregistrarse_Click);
 			btncerrar.Click+= new EventHandler(btncerrar_Click);
 		}
 
