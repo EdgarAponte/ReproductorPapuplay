@@ -1,0 +1,89 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace Login
+{
+	
+	public partial class Form1 : Form
+	{
+		public Form1()
+		{
+			
+			InitializeComponent();
+			btnregistrarse2.Click += new EventHandler(btnregistrarse2_Click);
+			btncerrar3.Click += new EventHandler(btncerrar3_Click);
+		}
+
+		void btncerrar3_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("¿Estas seguro que no te quieres registrar?", "Confirmación", MessageBoxButtons.YesNo);
+  		  	if (dialogResult == DialogResult.Yes)
+    		{
+      		  this.Close();
+   			}
+		}
+
+		void btnregistrarse2_Click(object sender, EventArgs e)
+		{
+			ValidarCampos();
+			string nombreaux=nombre.Text;
+			string apellidoaux=apellido.Text;
+			string usuarioaux=usuario.Text;
+			string contraseñaaux=contra.Text;
+			string cedulaaux=CedulaLB.Text;
+			DateTime fechaNaux=FechaNLB.Value;
+			DateTime fechaRaux=DateTime.Now;
+			int numeroRaux = 1;
+			
+			using(coleccionusuario CrearRegistro=new coleccionusuario())
+			{
+				CrearRegistro.Create(new Usuario(nombreaux,apellidoaux,usuarioaux,contraseñaaux,cedulaaux,fechaNaux,fechaNaux,numeroRaux));
+				MessageBox.Show("Registro Exitoso");
+			}
+			
+			numeroRaux++;
+			
+		}
+		
+		private bool ValidarCampos()
+		{
+			bool ok = true;
+			
+			if (nombre.Text == "")
+			{
+				ok = false;
+				errorProvider1.SetError(nombre, "Campo Vacío");
+			
+			}
+			if (apellido.Text == "")
+			{
+				ok = false;
+				errorProvider1.SetError(apellido, "Campo Vacío");
+			
+			}
+			if (usuario.Text == "")
+			{
+				ok = false;
+				errorProvider1.SetError(usuario, "Campo Vacío");
+			
+			}
+			if (contra.Text == "")
+			{
+				ok = false;
+				errorProvider1.SetError(contra, "Campo Vacío");
+			
+			}
+			if (CedulaLB.Text == "")
+			{
+				ok = false;
+				errorProvider1.SetError(CedulaLB, "Campo Vacío");
+			
+			}
+			
+			return ok; 
+		}
+			
+		
+	}
+}
